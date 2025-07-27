@@ -1,35 +1,211 @@
-# Configuration et utilisation de la base de données MySQL avec WAMP et phpMyAdmin
+# IStore 2.0 - Système de Gestion de Magasins
 
-Ce guide vous aidera à configurer et à utiliser la base de données MySQL en utilisant WAMP et phpMyAdmin sur votre système.
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=flat&logo=openjdk&logoColor=white)
+![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=flat&logo=mysql&logoColor=white)
+![WAMP](https://img.shields.io/badge/WAMP-Server-orange.svg)
+![Maven](https://img.shields.io/badge/Maven-C71A36?style=flat&logo=apache-maven&logoColor=white)
 
-## Installation de WAMP
+## Description
 
-1. Téléchargez et installez WAMP à partir du site officiel : [https://www.wampserver.com/en/](https://www.wampserver.com/en/).
-2. Suivez les instructions d'installation fournies par le programme d'installation de WAMP.
-3. Une fois l'installation terminée, lancez WAMP.
+IStore 2.0 est un système de gestion de magasins développé en Java avec une interface graphique Swing et une base de données MySQL. L'application permet de gérer plusieurs magasins, leurs employés, et leurs inventaires d'articles. Elle offre des interfaces différenciées pour les administrateurs et les employés avec un système de whitelist pour contrôler les inscriptions.
 
-## Configuration de la base de données MySQL
+### Caractéristiques principales :
+- Interface graphique Java Swing moderne
+- Deux types d'utilisateurs : Administrateurs et Employés
+- Gestion multi-magasins (Carrefour, Auchan, Intermarché, Lidl, Netto)
+- Système de whitelist pour contrôler les inscriptions
+- Gestion des articles avec prix et stock
+- Interface d'administration complète
+- Base de données MySQL avec 5 tables (users, stores, inventories, articles, whitelist)
+- Documentation JavaDoc complète
+- JAR exécutable fourni
 
-1. Ouvrez votre navigateur web et accédez à l'interface de gestion de WAMP en entrant l'URL suivante dans la barre d'adresse : `http://localhost`.
-2. Assurez-vous que les services Apache et MySQL sont démarrés. Vous pouvez le vérifier en regardant les icônes dans la barre des tâches de Windows.
-3. Cliquez sur l'icône phpMyAdmin dans l'interface de gestion de WAMP pour accéder à phpMyAdmin.
+## Prérequis
 
-## Création d'une nouvelle base de données
+- Java JDK 21
+- WAMP Server (Apache, MySQL, PHP)
+- IDE Java (IntelliJ IDEA recommandé)
+- Maven (optionnel, pour la gestion des dépendances)
+- Navigateur web pour phpMyAdmin
 
-1. Dans phpMyAdmin, cliquez sur l'onglet "Bases de données".
-2. Saisissez un nom pour votre nouvelle base de données dans le champ "Créer une base de données" et cliquez sur le bouton "Créer".
+## Installation
 
-## Importation d'un fichier SQL
+### 1. Installation de WAMP Server
 
-1. Dans phpMyAdmin, sélectionnez la base de données dans laquelle vous souhaitez importer le fichier SQL.
-2. Cliquez sur l'onglet "Importer" dans la barre de navigation supérieure.
-3. Cliquez sur le bouton "Parcourir" pour sélectionner le fichier SQL à importer depuis votre système.
-4. Cliquez sur le bouton "Exécuter" pour importer le fichier SQL dans la base de données sélectionnée.
+1. Téléchargez WAMP depuis : [https://www.wampserver.com/en/](https://www.wampserver.com/en/)
+2. Installez WAMP en suivant l'assistant d'installation
+3. Lancez WAMP Server
+4. Vérifiez que l'icône WAMP est verte dans la barre des tâches
 
-## Utilisation de la base de données dans votre application
+### 2. Configuration de la base de données
 
-Une fois que vous avez configuré et importé votre base de données, vous pouvez maintenant l'utiliser dans votre application. Assurez-vous de spécifier les paramètres de connexion corrects dans votre application pour vous connecter à la base de données MySQL.
+1. **Accéder à phpMyAdmin**
+   - Ouvrez votre navigateur
+   - Accédez à : `http://localhost/phpmyadmin`
 
-## Lancer l'application
+2. **Créer la base de données**
+   - Cliquez sur l'onglet "Bases de données"
+   - Créez une base de données nommée `istore2_0`
+   - Cliquez sur "Créer"
 
-Pour lancer l'application exécuter la class SignUpUI.java
+3. **Importer le fichier SQL**
+   - Sélectionnez la base de données `istore2_0`
+   - Cliquez sur l'onglet "Importer"
+   - Parcourez et sélectionnez `Database/istore2_0 (2).sql`
+   - Cliquez sur "Exécuter"
+
+### 3. Configuration du projet Java
+
+1. **Cloner le repository**
+   ```bash
+   git clone https://github.com/AJOUIRJAayoub/2JAVA.git
+   cd 2JAVA
+   ```
+
+2. **Ouvrir dans votre IDE**
+   - Importez le projet comme projet Java existant
+   - Configurez le JDK si nécessaire
+
+3. **Configurer la connexion à la base de données**
+   - Le projet utilise les paramètres par défaut :
+   ```java
+   String url = "jdbc:mysql://localhost:3306/istore2_0";
+   String user = "root";
+   String password = "";
+   ```
+
+## Utilisation
+
+### Lancer l'application
+
+1. **Option 1 : Utiliser le JAR fourni**
+   ```bash
+   java -jar IStoreLTD.jar
+   ```
+
+2. **Option 2 : Depuis l'IDE**
+   - Assurez-vous que WAMP Server est démarré
+   - Dans votre IDE, localisez `src/main/java/UI/SignUpUI.java`
+   - Exécutez `SignUpUI.java` (Clic droit → Run)
+
+### Navigation dans l'application
+
+1. **Inscription** 
+   - Email doit être dans la whitelist pour s'inscrire
+   - Emails autorisés par défaut : `a` et `ayoub.ajouirja@supinfo.com`
+   
+2. **Connexion**
+   - **Admin** : `ayoub.ajouirja@supinfo.com` / `123456`
+   - **Employé** : `riad.ajouirja@supinfo.fr` / `123456`
+
+3. **Interface Administrateur**
+   - Gestion des magasins (ajouter, supprimer)
+   - Gestion des employés (ajouter, voir détails, assigner aux magasins)
+   - Gestion de la whitelist
+   - Vue d'ensemble du système
+
+4. **Interface Employé**
+   - Gestion des articles du magasin assigné
+   - Ajout/modification des articles
+   - Gestion des stocks et prix
+
+## Structure du projet
+
+```
+2JAVA/
+├── .idea/                          # Configuration IntelliJ IDEA
+│   ├── artifacts/                  # Configuration des artifacts
+│   └── ...                        # Autres fichiers de configuration
+├── Database/                       # Scripts SQL
+│   └── istore2_0 (2).sql          # Base de données IStore 2.0
+├── Documentation/                  # Documentation JavaDoc générée
+│   ├── Database/                   # Documentation des classes Database
+│   ├── UI/                        # Documentation des interfaces
+│   ├── index-files/               # Index de la documentation
+│   ├── legal/                     # Informations légales
+│   ├── resources/                 # Ressources (CSS, images)
+│   └── script-dir/                # Scripts JavaScript
+├── META-INF/                      # Métadonnées du projet
+│   └── MANIFEST.MF                # Manifest pour l'exécutable JAR
+├── out/                           # Fichiers compilés
+│   └── artifacts/                 
+│       └── Istore2_0_jar/         # JAR exécutable
+├── src/                           # Code source
+│   ├── libs/                      # Bibliothèques externes
+│   │   └── mysql-connector-j-8.3.0.jar
+│   └── main/
+│       └── java/
+│           ├── Database/          # Classes de gestion BDD
+│           │   └── DatabaseManager.java
+│           └── UI/                # Interfaces utilisateur
+│               ├── SignUpUI.java          # Interface d'inscription
+│               ├── LoginUI.java           # Interface de connexion
+│               ├── AdminUI.java           # Interface administrateur
+│               ├── UserUI.java            # Interface utilisateur
+│               ├── UserListUI.java        # Liste des utilisateurs
+│               ├── AddArticleDialog.java  # Ajout d'articles
+│               ├── AddEmployeeDialog.java # Ajout d'employés
+│               ├── AddStoreDialog.java    # Ajout de magasins
+│               ├── EmployeeDetailsDialog.java
+│               └── WhitelistAdminInterface.java
+├── .gitattributes                 # Configuration Git
+├── .gitignore                     # Fichiers ignorés par Git
+├── IStoreLTD.jar                  # JAR exécutable du projet
+├── pom.xml                        # Configuration Maven
+└── README.txt                     # Instructions d'installation
+```
+
+## Base de données
+
+### Structure des tables
+
+1. **users** : Utilisateurs du système (admin/employee)
+2. **stores** : Magasins (Carrefour, Auchan, etc.)
+3. **inventories** : Inventaires liés aux magasins
+4. **articles** : Articles avec prix et stock
+5. **whitelist** : Emails autorisés à s'inscrire
+
+### Données initiales
+
+- 5 magasins prédéfinis
+- 5 utilisateurs de test (1 admin, 4 employés)
+- 2 emails dans la whitelist
+
+## Dépannage
+
+### WAMP ne démarre pas
+- Vérifiez qu'aucun autre service n'utilise les ports 80 et 3306
+- Désactivez temporairement le pare-feu Windows
+- Lancez WAMP en tant qu'administrateur
+
+### Erreur de connexion à la base de données
+- Vérifiez que MySQL est démarré (icône WAMP verte)
+- Confirmez les paramètres de connexion dans le code
+- Assurez-vous que la base de données existe
+
+### L'application ne se lance pas
+- Vérifiez la version du JDK installée
+- Assurez-vous que toutes les dépendances sont présentes
+- Consultez la console pour les messages d'erreur
+
+## Technologies utilisées
+
+- **Java 21** : Langage de programmation principal
+- **Swing** : Framework pour l'interface graphique
+- **MySQL 8.0** : Système de gestion de base de données
+- **JDBC** : MySQL Connector/J 8.3.0
+- **Maven** : Gestion des dépendances et build
+- **WAMP Server** : Environnement de développement
+- **phpMyAdmin** : Interface web pour MySQL
+- **IntelliJ IDEA** : IDE recommandé
+
+## Contexte
+
+Ce projet a été réalisé dans le cadre du module 2JAVA à SUPINFO, projet de deuxième année.
+
+## Contact
+
+Pour toute question ou suggestion, n'hésitez pas à ouvrir une issue sur GitHub.
+
+---
+Projet 2JAVA - SUPINFO
